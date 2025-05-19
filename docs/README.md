@@ -17,11 +17,3 @@ Este projeto simula o processo de eleições legislativas em Portugal, incluindo
 1. Instale as dependências:
 ```bash
 pip install -r requirements.txt
-
-## 📘 Nota
-
-Este trabalho foi realizado no âmbito da unidade curricular de Programação IV, pelos alunos:
-
-Filipe Alcaide (n.º 2023394)
-
-Fábio Cosme (n.º 2023150)
