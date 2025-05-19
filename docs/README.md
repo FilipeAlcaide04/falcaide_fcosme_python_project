@@ -1,4 +1,4 @@
-# Simulação de Eleições Legislativas em Portugal
+# Simulação de Eleições Legislativas em Portugal 🇵🇹
 
 Este projeto simula o processo de eleições legislativas em Portugal, incluindo:
 
