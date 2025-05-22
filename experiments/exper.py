@@ -2,8 +2,12 @@
 
 import pandas as pd
 
-df = pd.read_csv('data/raw/freguesias_portugal_raw.csv')
+df = pd.read_csv('data/processed/portugal_administrative_divisions.csv')
 
-resultado = df[df['name'] == 'Aguada de Cima']
+# aveiro = df[df.distrito == 'Aveiro'] Aqui filtra todas as colunas com o Distrito aveiro
 
-print(resultado)
+# loures = df[df.municipio == 'Loures'] 
+
+print(loures)
+
+

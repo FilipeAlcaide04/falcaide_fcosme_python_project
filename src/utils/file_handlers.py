@@ -45,4 +45,4 @@ df = pd.merge(
 df = df[['ine_id', 'distrito', 'municipio', 'freguesia']]
 
 #Guardar em csv com os dados já limpos
-#df.to_csv('data/processed/portugal_administrative_divisions.csv', index=False)
+#df.to_csv('data/processed/dados_regionais_processed.csv', index=False)
