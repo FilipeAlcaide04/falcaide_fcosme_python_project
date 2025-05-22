@@ -4,7 +4,7 @@
 - [x] Script para fazer download dos dados (freguesias, municípios e distritos)
   - [x] Adicionar código a `1º-data_aquisition.py`
   - [ ] Testar funcionalidade
-- [ ] Script para verificar consistência e limpar os dados se necessário (`2º-data_cleaning_etc.py`)
+- [x] Script para verificar consistência e limpar os dados se necessário (`2º-data_cleaning_etc.py`)
   - [ ] Testar funcionalidade
 - [ ] Script para gerar simular/gerar dados por freguesia (`generate_data.py`)
   - [ ] Testar funcionalidade
@@ -29,7 +29,6 @@
 
 ## 🧪 Testes
 - [ ] Escrever testes automáticos (diretório `tests/`)
-  - [ ] Validação de dados (`data_validation.py`)
   - [ ] Testes unitários dos scripts principais
 
 ## 📄 Documentação
