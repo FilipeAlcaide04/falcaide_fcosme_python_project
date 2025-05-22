@@ -3,7 +3,7 @@
 Este projeto simula o processo de eleições legislativas em Portugal, incluindo:
 
 1. Geração de resultados eleitorais simulados por freguesia
-2. Comparação com os resultados reais de 2024
+2. Comparação com os resultados reais de 2009
 3. Servidor para recepção e processamento de dados
 4. Visualização de resultados
 
@@ -17,3 +17,4 @@ Este projeto simula o processo de eleições legislativas em Portugal, incluindo
 1. Instale as dependências:
 ```bash
 pip install -r requirements.txt
+```
