@@ -16,7 +16,7 @@ distritos = distritos.rename(columns={'name': 'distrito'})
 municipios = municipios.rename(columns={'name': 'municipio'})
 freguesias = freguesias.rename(columns={'name': 'freguesia'})
 
-#Junta o distrito e o municipio 
+#Junta o distrito e o municipio
 freguesias['distrito_id'] = freguesias['ine_id'].str[:2]
 freguesias['municipio_id'] = freguesias['ine_id'].str[:4]
 
