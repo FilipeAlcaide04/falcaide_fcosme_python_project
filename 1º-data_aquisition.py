@@ -14,7 +14,7 @@ files = {
     "freguesias": "https://raw.githubusercontent.com/mapaslivres/divisoes-administrativas-pt/master/data/freguesias.csv",
 }
 
-# Faz donwload dos csvs e se for preciso substitui os arquivos
+# Faz download dos csvs e se for preciso substitui os arquivos
 for name, url in files.items():
     file_path = os.path.join(output_dir, f"{name}.csv")
     try:
