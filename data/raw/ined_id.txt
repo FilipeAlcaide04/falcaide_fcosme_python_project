@@ -1,0 +1,24 @@
+    Como funciona o código ine_ide?
+
+    O código ine_ide é um identificador composto por 6 dígitos e está organizado da seguinte forma: 
+
+    Distrito → 2 primeiros dígitos
+
+    Município → 4 primeiros dígitos (os 2 do distrito + 2 do município)
+
+    Freguesia → 6 dígitos completos (distrito + município + freguesia)
+
+    Exemplo:
+
+    Código completo: 110729
+
+    Distrito: 11 → Lisboa
+
+    Município: 1107 → Loures
+
+    Freguesia: 110729 → União das freguesias de Santo Antão e São Julião do Tojal
+
+    A distinção das áreas será feita no file utils/file_handlers
+
+
+    *ps Só o tempo que demorei a perceber isto não está escrito :) 
