@@ -5,15 +5,20 @@
   - [x] Adicionar código a `1º-data_aquisition.py`
   - [ ] Testar funcionalidade
 - [ ] Script para verificar consistência e limpar os dados se necessário (`2º-data_cleaning_etc.py`)
+  - [ ] Testar funcionalidade
 - [ ] Script para gerar simular/gerar dados por freguesia (`generate_data.py`)
+  - [ ] Testar funcionalidade
 
 ## 🔁 Comparação com os resultados reais de 2009
 - [ ] Alterar `1º-data_aquisition.py` para incluir download dos dados de 2009
+  - [ ] Testar funcionalidade
 - [ ] Criar script para processar e comparar com os simulados
+  - [ ] Testar funcionalidade
 
 ## 🌐 Servidor para recepção e processamento de dados
 - [ ] Implementar servidor (ex: `cne_server.py`, `data_processor.py`)
   - [ ] Receber dados e executar os cálculos necessário
+    - [ ] Testar funcionalidade
   - [ ] Guardar/processar dados recebidos no folder `data/processed`
 
 ## 📊 Visualização de resultados
