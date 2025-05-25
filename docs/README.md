@@ -2,8 +2,8 @@
 
 Este projeto simula o processo de eleições legislativas em Portugal, incluindo:
 
-1. Geração de resultados eleitorais simulados por freguesia
-2. Comparação com os resultados reais de 2009
+1. Geração de resultados eleitorais simulados por freguesia, baseado no resultados regionais
+2. Comparar os resultados de 2019 com os de 2024
 3. Servidor para recepção e processamento de dados
 4. Visualização de resultados
 

@@ -58,4 +58,8 @@ def main():
     # Guardar em CSV com os dados já limpos
     df.to_csv('data/processed/dados_regionais_processed.csv', index=False)
 
+##############################################################################################################################
+
+""" Aqui vamos limpar os dados das eleições de 2019 e 2024 """
+
 
