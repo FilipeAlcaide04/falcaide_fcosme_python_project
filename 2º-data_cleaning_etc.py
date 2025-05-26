@@ -3,3 +3,7 @@
 import src.utils.file_handlers as data
 
 data.main()
+
+data.sec_main('2019')
+
+data.sec_main('2024')
