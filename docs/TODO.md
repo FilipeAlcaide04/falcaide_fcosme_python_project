@@ -20,6 +20,7 @@
   - [ ] Receber dados e executar os cálculos necessário
     - [ ] Testar funcionalidade
   - [ ] Guardar/processar dados recebidos no folder `data/processed`
+  * python -m http.server 8000 // Para iniciar o server (remove later)
 
 ## 📊 Visualização de resultados
 - [ ] Script para visualização gráfica dos dados finais (`visualization.py`)

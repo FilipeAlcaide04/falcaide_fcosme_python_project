@@ -1,8 +1,10 @@
-""" Módulo usado para ordernar e processar os ficheiros raw """
+""" Módulo usado para ordenar e processar os ficheiros raw """
+
 import pandas as pd
 import os
 import sys
 import numpy as np
+import src.data_generator as generate
 
 def carregar_csv(caminho):
     if not os.path.exists(caminho):
@@ -59,28 +61,32 @@ def main():
     # Guardar em CSV com os dados já limpos
     df.to_csv('data/processed/dados_regionais_processed.csv', index=False)
 
-##############################################################################################################################
-
-""" Aqui vamos limpar os dados das eleições de 2019 e 2024 """
-
 
 def sec_main(i):
-
     if i == '2019':
         arquivo_excel = 'data/raw/elections/ar2019-quadro-resultados.xls'
+        sheet_name = 'Quadro'  # Sheet name for 2019
     elif i == '2024':
         arquivo_excel = 'data/raw/elections/2024_ar_quadro_resultados.xlsx'
+        sheet_name = 'Mapa Oficial'  # Correct sheet name for 2024
 
     # Arquivos
     arquivo_csv = 'data/processed/dados_regionais_processed.csv'
 
     # 1. Carrega planilha Excel com resultados por distrito
-    eleicoes = pd.read_excel(arquivo_excel, sheet_name='Quadro', header=None)
+    eleicoes = pd.read_excel(arquivo_excel, sheet_name=sheet_name, header=None)
 
-    distritos = eleicoes.iloc[3, 2:].tolist()
-    inscritos = eleicoes.iloc[4, 2:].astype(float).tolist()
-    votantes = eleicoes.iloc[5, 2:].astype(float).tolist()
-    brancos = eleicoes.iloc[8, 2:].astype(float).tolist()
+    # For 2019 and 2024, the structure is similar but row indexes might differ
+    if i == '2019':
+        distritos = eleicoes.iloc[3, 2:].tolist()
+        inscritos = eleicoes.iloc[4, 2:].astype(float).tolist()
+        votantes = eleicoes.iloc[5, 2:].astype(float).tolist()
+        brancos = eleicoes.iloc[8, 2:].astype(float).tolist()
+    elif i == '2024':
+        distritos = eleicoes.iloc[2, 2:].tolist()
+        inscritos = eleicoes.iloc[3, 2:].astype(float).tolist()
+        votantes = eleicoes.iloc[4, 2:].astype(float).tolist()  # This is the "Número" row for Votantes
+        brancos = eleicoes.iloc[7, 2:].astype(float).tolist()
 
     df_distritos = pd.DataFrame({
         'distrito': distritos,
@@ -97,8 +103,10 @@ def sec_main(i):
     df_freguesias['distrito'] = df_freguesias['distrito'].str.strip()
 
     # 3. Cria população aleatória plausível para cada freguesia
-    np.random.seed(42)  # Para reprodutibilidade
-    df_freguesias['populacao'] = np.random.randint(500, 5001, size=len(df_freguesias))
+   # np.random.seed(42)  
+    df_freguesias['populacao'] = generate.gen_pop(df_freguesias)
+
+    #np.random.randint(500, 5001, size=len(df_freguesias))
 
     # 4. Junta os dados distritais com as freguesias
     df = df_freguesias.merge(df_distritos, on='distrito', how='left')
@@ -120,7 +128,10 @@ def sec_main(i):
     df['votantes_freguesia'] = df['votantes_freguesia'].round().astype(int)
     df['brancos_freguesia'] = df['brancos_freguesia'].round().astype(int)
 
-    # 8. Salva o resultado
-    df.to_csv('data/processed/resultados_por_freguesia.csv', index=False)
+    # 8. Salva o resultado (fixing the typo in '2019:')
+    if i == '2019':
+        df.to_csv('data/processed/data_votes_freg_2019.csv', index=False)
+    elif i == '2024':
+        df.to_csv('data/processed/data_votes_freg_2024.csv', index=False)
 
     print("✅ Resultados por freguesia gerados com população aleatória plausível!")
