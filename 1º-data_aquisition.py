@@ -1,3 +1,4 @@
+
 """ Aqui vai ser executado um script que vai buscar os dados raw """
 
 import requests
@@ -94,5 +95,16 @@ for f in os.listdir(output_dir):
     print(f"- {f}")
 
 # Isto aqui é só para apagar as ods, porque não vão ser necessárias e deixa a pasta mais limpa
-os.system("rm data/raw/elections data/raw/elections/2024_ar_quadro_resultados.ods\
-     & rm data/raw/elections/ar2019-quadro-resultados.ods")
+# Lista de arquivos a serem removidos
+
+files_to_remove = [
+    os.path.join("data", "raw", "elections", "2024_ar_quadro_resultados.ods"),
+    os.path.join("data", "raw", "elections", "ar2019-quadro-resultados.ods")
+]
+
+for file_path in files_to_remove:
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        print(f"Removed: {file_path}")
+    else:
+        print(f"File not found: {file_path}")
