@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Resultados Eleitorais</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { font-family: Arial; background: #f0f0f0; padding: 20px; }
+    select { margin: 10px; }
+    #chartContainer { width: 600px; margin-top: 30px; }
+  </style>
+</head>
+<body>
+
+<h2>Resultados Eleitorais</h2>
+
+<label for="distrito">Distrito:</label>
+<select id="distrito" onchange="carregarFreguesias()">
+  <option value="">Escolha um distrito</option>
+  <option value="lisboa">Lisboa</option>
+  <option value="porto">Porto</option>
+</select>
+
+<label for="freguesia">Freguesia:</label>
+<select id="freguesia" onchange="mostrarResultados()">
+  <option value="">Escolha uma freguesia</option>
+</select>
+
+<div id="chartContainer">
+  <canvas id="resultadosChart"></canvas>
+</div>
+
+<script>
+async function carregarFreguesias() {
+  const distrito = document.getElementById("distrito").value;
+  const res = await fetch(`/api/freguesias?distrito=${distrito}`);
+  const freguesias = await res.json();
+
+  const select = document.getElementById("freguesia");
+  select.innerHTML = "<option value=''>Escolha uma freguesia</option>";
+
+  freguesias.forEach(f => {
+    const opt = document.createElement("option");
+    opt.value = f;
+    opt.textContent = f;
+    select.appendChild(opt);
+  });
+}
+
+let chart;
+async function mostrarResultados() {
+  const distrito = document.getElementById("distrito").value;
+  const freguesia = document.getElementById("freguesia").value;
+
+  const res = await fetch(`/api/resultados?distrito=${distrito}&freguesia=${freguesia}`);
+  const dados = await res.json();
+
+  const ctx = document.getElementById('resultadosChart').getContext('2d');
+  if (chart) chart.destroy();
+
+  chart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: Object.keys(dados),
+      datasets: [{
+        label: 'Nº de Votos',
+        data: Object.values(dados),
+        backgroundColor: ['blue', 'orange', 'purple']
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } }
+    }
+  });
+}
+</script>
+
+</body>
+</html>

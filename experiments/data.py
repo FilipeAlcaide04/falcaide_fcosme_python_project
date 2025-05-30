@@ -1,10 +1,16 @@
-import pandas as pd
+import csv
+import json
 
-# Carrega o CSV
-test = pd.read_csv('data/processed/resultados_por_freguesia_2024.csv')
+arquivo_csv = 'data\processed\dados_regionais_processed.csv'
+arquivo_json = 'dados.json'
 
-# Seleciona a coluna 'populacao' e calcula a soma
-soma_populacao = test['Inscritos'].sum()
+# Ler CSV e converter para lista de dicionários
+with open(arquivo_csv, mode='r', encoding='utf-8') as arquivo:
+    leitor = csv.DictReader(arquivo)
+    dados = [linha for linha in leitor]
 
-# Mostra o resultado
-print("Soma da população:", soma_populacao)
+# Salvar a lista de dicionários em JSON
+with open(arquivo_json, mode='w', encoding='utf-8') as arquivo_json_out:
+    json.dump(dados, arquivo_json_out, ensure_ascii=False, indent=4)
+
+print(f'Dados do CSV salvos no arquivo {arquivo_json} com sucesso!')
