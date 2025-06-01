@@ -63,8 +63,8 @@ def main():
     # Guardar em CSV com os dados já limpos
     df.to_csv('data/processed/dados_regionais_processed.csv', index=False)
 
-    arquivo_csv = 'data\processed\dados_regionais_processed.csv'
-    arquivo_json = 'data\processed\dados_regionais_processed.json'
+    arquivo_csv = 'data/processed/dados_regionais_processed.csv'
+    arquivo_json = 'data/processed/dados_regionais_processed.json'
 
     # Ler CSV e converter para lista de dicionários
     with open(arquivo_csv, mode='r', encoding='utf-8') as arquivo:
