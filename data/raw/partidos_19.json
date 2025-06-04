@@ -1,23 +1,11 @@
-{
-  "A": "Aliança",
-  "B.E.": "Bloco de Esquerda",
-  "CDS-PP": "Centro Democrático Social – Partido Popular",
-  "CH": "Chega",
-  "IL": "Iniciativa Liberal",
-  "JPP": "Juntos pelo Povo",
-  "L": "Livre",
-  "MAS": "Movimento Alternativa Socialista",
-  "MPT": "Movimento Partido da Terra",
-  "NC": "Nós, Cidadãos!",
-  "PAN": "Pessoas-Animais-Natureza",
-  "PCP-PEV": "Coligação Democrática Unitária (PCP-PEV)",
-  "PCTP/MRPP": "Partido Comunista dos Trabalhadores Portugueses / Movimento Reorganizativo do Partido do Proletariado",
-  "PDR": "Partido Democrático Republicano",
-  "PNR": "Partido Nacional Renovador",
-  "PPD/PSD": "Partido Social Democrata",
-  "PPM": "Partido Popular Monárquico",
-  "PS": "Partido Socialista",
-  "PTP": "Partido Trabalhista Português",
-  "PURP": "Partido Unido dos Reformados e Pensionistas",
-  "R.I.R.": "Reagir Incluir Reciclar"
-}
+[
+    "PS",
+    "PSD",
+    "BE",
+    "CDU",
+    "CDS-PP",
+    "PAN",
+    "IL",
+    "CHEGA",
+    "Livre"
+]

@@ -90,7 +90,7 @@ def sec_main(i):
     # Arquivos
     arquivo_csv = 'data/processed/dados_regionais_processed.csv'
 
-    # 1. Carrega planilha Excel com resultados por distrito
+    # 1. Carrega o Excel com resultados por distrito
     eleicoes = pd.read_excel(arquivo_excel, sheet_name=sheet_name, header=None)
 
     # For 2019 and 2024, the structure is similar but row indexes might differ
@@ -116,11 +116,28 @@ def sec_main(i):
     df_freguesias = pd.read_csv(arquivo_csv)
 
     # Normaliza os nomes das colunas e remove espaços extras nos distritos
+    # Normaliza os nomes das colunas e remove espaços extras nos distritos
     df_freguesias.columns = df_freguesias.columns.str.strip().str.lower()
-    df_freguesias['distrito'] = df_freguesias['distrito'].str.strip()
+
+    # Substitui os nomes dos distritos das regiões autónomas
+    df_freguesias['distrito'] = df_freguesias['distrito'].replace({
+        'Ilha da Madeira': 'RA Madeira',
+        'Ilha de Porto Santo': 'RA Açores',
+        'Ilha de São Miguel': 'RA Açores',
+        'Ilha de Santa Maria': 'RA Açores',
+        'Ilha de Porto Santo': 'RA Açores',
+        'Ilha Terceira': 'RA Açores',
+        'Ilha de São Jorge': 'RA Açores',
+        'Ilha do Pico': 'RA Açores',
+        'Ilha das Flores': 'RA Açores',
+        'Ilha do Faial': 'RA Açores',
+        'Ilha Graciosa': 'RA Açores',
+        'Ilha do Corvo': 'RA Açores'
+    }).str.strip()
+
 
     # 3. Cria população aleatória plausível para cada freguesia
-   # np.random.seed(42)  
+ 
     df_freguesias['populacao'] = generate.gen_pop(df_freguesias)
 
     #np.random.randint(500, 5001, size=len(df_freguesias))
@@ -152,3 +169,29 @@ def sec_main(i):
         df.to_csv('data/processed/data_votes_freg_2024.csv', index=False)
 
     print("✅ Resultados por freguesia gerados com população aleatória plausível!")
+
+    arquivo_csv = 'data/processed/data_votes_freg_' + i + '.csv'
+    arquivo_json = 'data/processed/dados_regionais_processed.json'
+
+    # Ler CSV e converter para lista de dicionários
+    with open(arquivo_csv, mode='r', encoding='utf-8') as arquivo:
+        leitor = csv.DictReader(arquivo)
+        dados = [linha for linha in leitor]
+
+        # 9. Gerar votos por partido para cada freguesia
+    votos_partido = generate.gen_votes_por_partido(df, ano=i)
+    
+    # Obter os dados originais do DataFrame para calcular a abstenção
+    for idx, row in df.iterrows():
+        freguesia_id = row['ine_id']
+        # Encontrar a freguesia correspondente no votos_partido
+        for freg in votos_partido:
+            if freg['ine_id'] == freguesia_id:
+                inscritos = row['inscritos_freguesia']
+                votantes = row['votantes_freguesia']
+                freg['Abstenção'] = int(inscritos - votantes)
+                break
+
+    # 10. Salvar votos em arquivo JSON
+    with open(f'data/processed/votos_freguesia_{i}.json', 'w', encoding='utf-8') as f_out:
+        json.dump(votos_partido, f_out, ensure_ascii=False, indent=4)
