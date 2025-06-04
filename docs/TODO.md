@@ -6,37 +6,34 @@
   - [ ] Testar funcionalidade
 - [x] Script para verificar consistência e limpar os dados se necessário (`2º-data_cleaning_etc.py`)
   - [ ] Testar funcionalidade
-- [ ] Script para gerar simular/gerar dados por freguesia (`generate_data.py`)
+    - [x] Guardar/processar dados recebidos no folder `data/processed`
+- [x] Script para gerar simular/gerar dados por freguesia (`generate_data.py`)
   - [ ] Testar funcionalidade
 
 ## 🔁 Comparação com os resultados reais de 2009
-- [ ] Alterar `1º-data_aquisition.py` para incluir download dos dados de 2009
+- [x] Alterar `1º-data_aquisition.py` para incluir download dos dados de 2009
   - [ ] Testar funcionalidade
-- [ ] Criar script para processar e comparar com os simulados
+- [x] Criar script para processar e comparar com os simulados
   - [ ] Testar funcionalidade
 
 ## 🌐 Servidor para recepção e processamento de dados
-- [ ] Implementar servidor (ex: `cne_server.py`, `data_processor.py`)
-  - [ ] Receber dados e executar os cálculos necessário
+- [x] Implementar servidor (ex: `cne_server.py`)
+  - [x] Receber dados e executar os cálculos necessário
     - [ ] Testar funcionalidade
-  - [ ] Guardar/processar dados recebidos no folder `data/processed`
-  * python -m http.server 8000 // Para iniciar o server (remove later)
 
 ## 📊 Visualização de resultados
-- [ ] Script para visualização gráfica dos dados finais (`visualization.py`)
-  - [ ] Gráficos por distrito
-  - [ ] Gráficos por município
-  - [ ] Comparação entre simulado vs real
+- [x] Script para visualização gráfica dos dados finais usando Flask (`cne_server.py`)
+  - [x] Gráficos por Freguesia
+  - [ ] Comparação entre 2009 e 2024 (Selecionado pelo user)
 
 ## 🧪 Testes
 - [ ] Escrever testes automáticos (diretório `tests/`)
   - [ ] Testes unitários dos scripts principais
 
 ## 📄 Documentação
-- [ ] Atualizar `README.md`
-  - [ ] Instruções de instalação
-  - [ ] Como correr o projeto
-  - [ ] Explicação dos ficheiros principais
+- [x] Atualizar `README.md`
+  - [x] Instruções de instalação
+  - [x] Como correr o projeto
 - [ ] Completar `relatorio.md`
   - [ ] Metodologia
   - [ ] Resultados

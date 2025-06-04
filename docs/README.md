@@ -21,15 +21,9 @@ cd falcaide_fcosme_python_project
 
 ## 🐍 Como Executar
 
-1. Instale as dependências:
+1. Execute o script exec_app.py -> Instala as dependências e executa os scripts na ordem correta
 ```bash
-python3 requirements.py
+python3 exec_app.py
 ```
-2. Execute os scripts na ordem correta
-```bash
-python3 1º-data_aquisition.py
 
-python3 2º-data_cleaning_etc.py
 
-Falta aqui coisas
-```
