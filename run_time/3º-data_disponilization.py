@@ -1,1 +1,0 @@
-""" Aqui vai ser executado o script para disponibilizar a data """

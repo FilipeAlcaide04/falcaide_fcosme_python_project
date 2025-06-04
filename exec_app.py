@@ -2,6 +2,13 @@
 # Os ficheiros que serão executados encontram-se nas pastas "run_time" e "server_data"
 
 import os
+import platform
+
+def clear_terminal():
+    if platform.system() == "Windows":
+        os.system('cls')
+    else:  # Linux e macOS 
+        os.system('clear')
 
 def main():
     
@@ -26,7 +33,13 @@ def main():
     os.system('python3 run_time/2-data_cleaning_etc.py')
 
     # Executa o script que vai começar o server para uma view mesmo bonita, algo que o utilizador vai gostar de ver (espero eu :)
-    #os.system('python3 server_data/app.py')
+    #
+    if not os.path.exists('server_data/cne_server.py'):
+        print("O script 'cne_server.py' não foi encontrado. Certifique-se de que está no diretório correto.")
+        return
+    clear_terminal()
+    print("A iniciar o servidor... Aguarde um momento.")
+    os.system('python3 server_data/cne_server.py')
 
 if __name__ == "__main__":
     main()
