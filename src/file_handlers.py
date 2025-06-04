@@ -7,6 +7,8 @@ import numpy as np
 import src.data_generator as generate
 import csv
 import json
+import pathlib 
+from pathlib import Path
 
 def carregar_csv(caminho):
     if not os.path.exists(caminho):
@@ -19,6 +21,10 @@ def carregar_csv(caminho):
         sys.exit(1)
 
 def main():
+
+    output_dir = Path("data/processed")
+    os.makedirs(output_dir, exist_ok=True)
+
     # Dar load ao CSVS com verificação de existência
     distritos = carregar_csv('data/raw/distritos.csv')
     municipios = carregar_csv('data/raw/municipios.csv')
@@ -80,6 +86,9 @@ def main():
 
 
 def sec_main(i):
+    output_dir = Path("data/processed")
+    os.makedirs(output_dir, exist_ok=True)
+    
     if i == '2019':
         arquivo_excel = 'data/raw/elections/ar2019-quadro-resultados.xls'
         sheet_name = 'Quadro'  # Sheet name for 2019
