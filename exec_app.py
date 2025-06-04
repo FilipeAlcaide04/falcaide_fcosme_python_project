@@ -37,7 +37,7 @@ def main():
     if not os.path.exists('server_data/cne_server.py'):
         print("O script 'cne_server.py' não foi encontrado. Certifique-se de que está no diretório correto.")
         return
-    clear_terminal()
+    #clear_terminal()
     print("A iniciar o servidor... Aguarde um momento.")
     os.system('python3 server_data/cne_server.py')
 
