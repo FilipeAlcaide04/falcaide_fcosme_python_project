@@ -1,0 +1,95 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
+  padding: 40px 20px;
+  line-height: 1.6;
+}
+
+h2 {
+  color: #1a237e;
+  margin-bottom: 20px;
+  font-size: 28px;
+  border-bottom: 2px solid #1a237e;
+  padding-bottom: 5px;
+  max-width: 600px;
+}
+
+label {
+  font-weight: bold;
+  margin-right: 10px;
+  color: #1a237e;
+}
+
+select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  margin: 10px 0;
+  background-color: #fff;
+  transition: border-color 0.3s;
+}
+
+select:focus {
+  border-color: #3949ab;
+  outline: none;
+}
+
+#chartContainer {
+  width: 100%;
+  max-width: 700px;
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  #chartContainer {
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  select {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+}
+
+    body { padding: 20px; }
+    .select-container { margin-bottom: 20px; }
+    .info-box { background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+    .info-item { margin-bottom: 5px; }
+    .vencedor-box { 
+      background: #e7f5ff; 
+      padding: 15px; 
+      border-radius: 5px; 
+      margin-bottom: 20px;
+      border-left: 5px solid #228be6;
+    }
+    .nacional-box {
+      background: #fff4e6;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .progress {
+      height: 25px;
+      margin-bottom: 10px;
+    }
+    .progress-bar {
+      font-weight: bold;
+    }
