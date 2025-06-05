@@ -24,7 +24,7 @@
 ## 📊 Visualização de resultados
 - [x] Script para visualização gráfica dos dados finais usando Flask (`cne_server.py`)
   - [x] Gráficos por Freguesia
-  - [ ] Comparação entre 2009 e 2024 (Selecionado pelo user)
+  - [x] Comparação entre 2009 e 2024 (Selecionado pelo user)
 
 ## 🧪 Testes
 - [ ] Escrever testes automáticos (diretório `tests/`)
