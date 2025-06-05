@@ -1,16 +1,27 @@
-import csv
-import json
 
-arquivo_csv = 'data\processed\dados_regionais_processed.csv'
-arquivo_json = 'dados.json'
+import argparse
 
-# Ler CSV e converter para lista de dicionários
-with open(arquivo_csv, mode='r', encoding='utf-8') as arquivo:
-    leitor = csv.DictReader(arquivo)
-    dados = [linha for linha in leitor]
+def get_args():
+    """Obtém os argumentos da linha de comando."""
+    parser = argparse.ArgumentParser(
+        description='Um script de exemplo de argparse (Calcula o quadrado de um número).'
+    )
 
-# Salvar a lista de dicionários em JSON
-with open(arquivo_json, mode='w', encoding='utf-8') as arquivo_json_out:
-    json.dump(dados, arquivo_json_out, ensure_ascii=False, indent=4)
+    parser.add_argument(
+    '--numero', '-n', 
+    type=float,
+    required=True,
+    help='Numero para calcular o quadrado.'
+    )
 
-print(f'Dados do CSV salvos no arquivo {arquivo_json} com sucesso!')
+    parser.add_argument(
+       '--verbose', '-v',
+       action='store_true',
+       help='Aumentar a verbosidade da saída.'
+    )
+
+    return parser.parse_args()
+
+
+args = get_args()
+print(args)

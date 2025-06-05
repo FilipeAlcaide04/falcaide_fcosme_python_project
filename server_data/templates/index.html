@@ -131,16 +131,36 @@
 <script>
 let chart;
 const cores = {
-  "PS": "#FF0000",
-  "PSD": "#FF9900",
-  "BE": "#9900FF",
-  "CDU": "#CC0000",
-  "CDS-PP": "#0000FF",
-  "PAN": "#00FF00",
-  "IL": "#00FFFF",
-  "CHEGA": "#000000",
-  "Livre": "#FFCC00"
+  // Partidos comuns e principais
+  "PS": "#FF0000",        // vermelho forte (socialistas)
+  "PSD": "#FF9900",       // laranja (social-democratas)
+  "BE": "#9900FF",        // roxo (bloco de esquerda)
+  "CDU": "#CC0000",       // vermelho escuro (coligação CDU)
+  "CDS-PP": "#0000FF",    // azul (centro-direita tradicional)
+  "PAN": "#00FF00",       // verde vivo (pessoas-animais-natureza)
+  "IL": "#00FFFF",        // ciano (iniciativa liberal)
+  "CHEGA": "#000000",     // preto (direita populista)
+  "LIVRE": "#FFCC00",     // amarelo dourado (partido livre)
+  
+  // Outros partidos 2019 e 2024
+  "R.I.R.": "#663399",       // índigo escuro (República e Independência)
+  "PCTP/MRPP": "#CC0066",    // rosa escuro (partido comunista dos trabalhadores)
+  "MPT": "#009933",          // verde escuro (movimento pelos trabalhadores)
+  "PURP": "#996600",         // marrom (poder unidade republica portuguesa)
+  "PPM": "#336699",          // azul acinzentado (partido popular monárquico)
+  "JPP": "#FF6600",          // laranja forte (juventude popular portuguesa)
+  "PNR": "#666666",          // cinza escuro (partido nacional renovador)
+  "Nós, Cidadãos!": "#999966", // verde musgo claro
+  "Aliança": "#FF33CC",      // rosa choque
+  "AD": "#FF6600",           // aliança democrática (laranja forte)
+  "ADN": "#669900",          // verde oliva (aliança democrática nacional)
+  "Volt": "#3366FF",         // azul vivo (partido internacional progressista)
+  "Ergue-te": "#CC3300",    // vermelho ferrugem
+  "NC": "#993366",           // vinho escuro (novo centro)
+  "MAS": "#336633",          // verde musgo escuro (movimento alternativo socialista)
+  "PTP": "#CC99CC",          // lilás (partido trabalhista português)
 };
+
 
 window.onload = async function() {
   const res = await fetch('/api/distritos');
@@ -214,10 +234,11 @@ async function mostrarResultadosNacionais() {
   partidosOrdenados.forEach(([partido, percentagem]) => {
     const bar = document.createElement("div");
     bar.className = "progress";
+    // Adicionar 10% para espaçamento visual
     bar.innerHTML = `
       <div class="progress-bar" 
            role="progressbar" 
-           style="width: ${percentagem}%; background-color: ${cores[partido] || '#999999'}"
+           style="width: ${percentagem+10}%; background-color: ${cores[partido] || '#999999'}" 
            aria-valuenow="${percentagem}" 
            aria-valuemin="0" 
            aria-valuemax="100">
@@ -330,10 +351,11 @@ async function mostrarResultados() {
     const percent = data.percentagens[partido];
     const bar = document.createElement("div");
     bar.className = "progress";
+    // Adicionar 10% para espaçamento visual
     bar.innerHTML = `
       <div class="progress-bar" 
            role="progressbar" 
-           style="width: ${percent}%; background-color: ${cores[partido] || '#999999'}"
+           style="width: ${percent+10}%; background-color: ${cores[partido] || '#999999'}"
            aria-valuenow="${percent}" 
            aria-valuemin="0" 
            aria-valuemax="100">
