@@ -19,49 +19,50 @@ def gen_votes_por_partido(df_freguesias, ano='2019'):
 
     # Pesos de popularidade por ano para ter dados mais realistas :( 
     preferencias_por_ano = {
-    '2019': {
-        "PS": 5,
-        "PSD": 5,
-        "BE": 2,
-        "CDU": 1.5,
-        "CDS-PP": 1.5,
-        "PAN": 0.5,
-        "IL": 2,
-        "CHEGA": 2,
-        "LIVRE": 1,
-        "R.I.R.": 0.2,
-        "PCTP/MRPP": 0.05,
-        "MPT": 0.05,
-        "PURP": 0.1,
-        "PPM": 0.1,
-        "JPP": 0.2,
-        "PNR": 0.1,
-        "Nós, Cidadãos!": 0.1,
-        "Aliança": 0.2
-    },
-    '2024': {
-        "PS": 5,
-        "AD": 5,
-        "CHEGA": 3.5,
-        "IL": 2,
-        "BE": 1,
-        "LIVRE": 2,
-        "PAN": 0.5,
-        "CDU": 1.5,
-        "R.I.R.": 0.1,
-        "JPP": 0.4,
-        "ADN": 0.3,
-        "Volt": 0.3,
-        "Ergue-te": 0.05,
-        "MPT": 0.05,
-        "PPM": 0.1,
-        "NC": 0.1,
-        "MAS": 0.05,
-        "PTP": 0.05,
-        "PCTP/MRPP": 0.05
-    }   
-
+        '2019': {
+            "PS": 5,
+            "PSD": 4,
+            "BE": 2.5,
+            "CDU": 2,
+            "CDS-PP": 1.5,
+            "PAN": 1,
+            "IL": 1,
+            "CHEGA": 1,
+            "LIVRE": 0.5,
+            "R.I.R.": 0.2,
+            "PCTP/MRPP": 0.05,
+            "MPT": 0.05,
+            "PURP": 0.1,
+            "PPM": 0.1,
+            "JPP": 0.2,
+            "PNR": 0.1,
+            "Nós, Cidadãos!": 0.1,
+            "Aliança": 0.2
+        },
+        '2024': {
+            "PS": 5,
+            "AD": 5,
+            "CHEGA": 4,
+            "IL": 2,
+            "BE": 1,
+            "LIVRE": 2,
+            "PAN": 0.5,
+            "CDU": 1,
+            "R.I.R.": 0.1,
+            "JPP": 0.4,
+            "ADN": 0.3,
+            "Volt": 0.3,
+            "Ergue-te": 0.05,
+            "MPT": 0.05,
+            "PPM": 0.1,
+            "NC": 0.1,
+            "MAS": 0.05,
+            "PTP": 0.05,
+            "PCTP/MRPP": 0.05
+        }
     }
+
+
 
     preferencias = preferencias_por_ano.get(ano, {})
     alfas = [preferencias.get(partido, 1) for partido in partidos]
