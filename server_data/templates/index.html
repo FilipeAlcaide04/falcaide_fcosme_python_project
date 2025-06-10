@@ -17,7 +17,7 @@
       margin-bottom: 20px;
       border-left: 5px solid #228be6;
     }
-    .nacional-box {
+    .nacional-box, .distrital-box {
       background: #fff4e6;
       padding: 15px;
       border-radius: 5px;
@@ -60,9 +60,12 @@
       </select>
     </div>
     
-    <div class="col-md-3">
-      <button class="btn btn-primary mt-4 w-100" onclick="mostrarResultadosNacionais()">
+    <div class="col-md-3 d-flex flex-column">
+      <button class="btn btn-primary mb-2" onclick="mostrarResultadosNacionais()">
         Ver Resultados Nacionais
+      </button>
+      <button id="btnDistrital" class="btn btn-secondary" onclick="mostrarResultadosDistritais()" disabled>
+        Ver Resultados Distritais
       </button>
     </div>
   </div>
@@ -84,6 +87,32 @@
         <h5>Distribuição de Votos</h5>
         <div id="progressBarsNacional"></div>
       </div>
+    </div>
+  </div>
+  
+  <div id="distritalContainer" class="distrital-box" style="display: none;">
+    <h4>Resultados Distritais <span id="anoDistrital"></span> - <span id="distritoNome"></span></h4>
+    <div id="vencedorDistrital" class="vencedor-box"></div>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <h5>Estatísticas</h5>
+        <div class="info-item"><strong>Total Eleitores:</strong> <span id="totalEleitoresDistrito"></span></div>
+        <div class="info-item"><strong>Total Votantes:</strong> <span id="totalVotantesDistrito"></span></div>
+        <div class="info-item"><strong>Abstenção:</strong> <span id="totalAbstencaoDistrito"></span></div>
+        <div class="info-item"><strong>Votos Brancos:</strong> <span id="totalBrancosDistrito"></span></div>
+        <div class="info-item"><strong>Votos Válidos:</strong> <span id="totalValidosDistrito"></span></div>
+      </div>
+      <div class="col-md-6">
+        <h5>Distribuição de Votos</h5>
+        <div id="progressBarsDistrital"></div>
+      </div>
+    </div>
+    
+    <div class="mt-4">
+      <h5>Comparação com Resultados Nacionais</h5>
+      <div class="info-item"><strong>Vencedor Nacional:</strong> <span id="vencedorNacionalDistrital"></span></div>
+      <div id="progressBarsComparacaoDistrital"></div>
     </div>
   </div>
   
@@ -161,7 +190,6 @@ const cores = {
   "PTP": "#CC99CC",          // lilás (partido trabalhista português)
 };
 
-
 window.onload = async function() {
   const res = await fetch('/api/distritos');
   const distritos = await res.json();
@@ -172,6 +200,11 @@ window.onload = async function() {
     opt.value = d;
     opt.textContent = d;
     select.appendChild(opt);
+  });
+  
+  // Habilitar/desabilitar botão distrital conforme seleção
+  document.getElementById("distrito").addEventListener("change", function() {
+    document.getElementById("btnDistrital").disabled = !this.value;
   });
 };
 
@@ -202,8 +235,9 @@ async function mostrarResultadosNacionais() {
   const res = await fetch(`/api/resultados?ano=${ano}`);
   const data = await res.json();
   
-  // Mostrar container nacional e esconder local
+  // Mostrar container nacional e esconder outros
   document.getElementById("nacionalContainer").style.display = "block";
+  document.getElementById("distritalContainer").style.display = "none";
   document.getElementById("localContainer").style.display = "none";
   
   // Atualizar informações nacionais
@@ -249,6 +283,109 @@ async function mostrarResultadosNacionais() {
   });
 }
 
+async function mostrarResultadosDistritais() {
+  const distrito = document.getElementById("distrito").value;
+  const ano = document.getElementById("ano").value;
+  
+  const res = await fetch(`/api/resultados_distrito?distrito=${distrito}&ano=${ano}`);
+
+  const data = await res.json();
+  
+  if (!data.votos) {
+    alert("Dados não encontrados para este distrito");
+    return;
+  }
+  
+  // Mostrar container distrital e esconder outros
+  document.getElementById("distritalContainer").style.display = "block";
+  document.getElementById("nacionalContainer").style.display = "none";
+  document.getElementById("localContainer").style.display = "none";
+  
+  // Atualizar informações
+  document.getElementById("anoDistrital").textContent = ano;
+  document.getElementById("distritoNome").textContent = distrito;
+  
+  // Vencedor distrital
+  const vencedorDistrital = document.getElementById("vencedorDistrital");
+  vencedorDistrital.innerHTML = `
+    <h4>Vencedor no Distrito: <span style="color: ${cores[data.vencedor] || '#000'}">${data.vencedor}</span></h4>
+    <div>Com ${data.percentagens[data.vencedor].toFixed(2)}% dos votos válidos</div>
+  `;
+  
+  // Estatísticas
+  document.getElementById("totalEleitoresDistrito").textContent = data.estatisticas.total_eleitores.toLocaleString();
+  document.getElementById("totalVotantesDistrito").textContent = data.estatisticas.total_votantes.toLocaleString();
+  document.getElementById("totalAbstencaoDistrito").textContent = `${data.estatisticas.abstencao.toLocaleString()} (${(data.estatisticas.abstencao/data.estatisticas.total_eleitores*100).toFixed(2)}%)`;
+  document.getElementById("totalBrancosDistrito").textContent = `${data.estatisticas.brancos.toLocaleString()} (${(data.estatisticas.brancos/data.estatisticas.total_votantes*100).toFixed(2)}%)`;
+  document.getElementById("totalValidosDistrito").textContent = `${data.estatisticas.votos_validos.toLocaleString()} (${(data.estatisticas.votos_validos/data.estatisticas.total_votantes*100).toFixed(2)}%)`;
+  
+  // Vencedor nacional
+  const vencedorNacionalDistrital = document.getElementById("vencedorNacionalDistrital");
+  vencedorNacionalDistrital.innerHTML = `
+    <span style="color: ${cores[data.resultados_nacionais.vencedor] || '#000'}">${data.resultados_nacionais.vencedor}</span>
+    (${data.resultados_nacionais.percentagens[data.resultados_nacionais.vencedor].toFixed(2)}%)
+  `;
+  
+  // Barras de progresso distritais
+  const progressBarsDistrital = document.getElementById("progressBarsDistrital");
+  progressBarsDistrital.innerHTML = "";
+  
+  // Ordenar por percentagem
+  const partidosOrdenados = Object.entries(data.percentagens)
+    .sort((a, b) => b[1] - a[1]);
+  
+  partidosOrdenados.forEach(([partido, percentagem]) => {
+    const bar = document.createElement("div");
+    bar.className = "progress";
+    // Adicionar 10% para espaçamento visual
+    bar.innerHTML = `
+      <div class="progress-bar" 
+           role="progressbar" 
+           style="width: ${percentagem+10}%; background-color: ${cores[partido] || '#999999'}" 
+           aria-valuenow="${percentagem}" 
+           aria-valuemin="0" 
+           aria-valuemax="100">
+        <strong>${partido}</strong>: ${percentagem.toFixed(2)}%
+      </div>
+    `;
+    progressBarsDistrital.appendChild(bar);
+  });
+  
+  // Barras de comparação com nacional
+  const progressBarsComparacaoDistrital = document.getElementById("progressBarsComparacaoDistrital");
+  progressBarsComparacaoDistrital.innerHTML = "";
+  
+  partidosOrdenados.forEach(([partido]) => {
+    const percentDistrital = data.percentagens[partido];
+    const percentNacional = data.resultados_nacionais.percentagens[partido] || 0;
+    
+    const bar = document.createElement("div");
+    bar.className = "mb-3";
+    bar.innerHTML = `
+      <div><strong>${partido}</strong></div>
+      <div class="d-flex">
+        <div class="text-center" style="width: 50%; padding-right: 5px;">
+          <small>Distrital (${percentDistrital.toFixed(2)}%)</small>
+          <div class="progress" style="height: 10px;">
+            <div class="progress-bar" role="progressbar" 
+                 style="width: ${percentDistrital}%; background-color: ${cores[partido] || '#999999'}">
+            </div>
+          </div>
+        </div>
+        <div class="text-center" style="width: 50%; padding-left: 5px;">
+          <small>Nacional (${percentNacional.toFixed(2)}%)</small>
+          <div class="progress" style="height: 10px;">
+            <div class="progress-bar" role="progressbar" 
+                 style="width: ${percentNacional}%; background-color: ${cores[partido] || '#999999'}">
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    progressBarsComparacaoDistrital.appendChild(bar);
+  });
+}
+
 async function mostrarResultados() {
   const distrito = document.getElementById("distrito").value;
   const freguesia = document.getElementById("freguesia").value;
@@ -262,9 +399,10 @@ async function mostrarResultados() {
     return;
   }
 
-  // Mostrar container local e esconder nacional
+  // Mostrar container local e esconder outros
   document.getElementById("localContainer").style.display = "block";
   document.getElementById("nacionalContainer").style.display = "none";
+  document.getElementById("distritalContainer").style.display = "none";
   
   // Vencedor local
   const vencedorLocal = document.getElementById("vencedorLocal");

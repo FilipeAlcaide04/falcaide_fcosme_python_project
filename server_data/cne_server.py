@@ -128,5 +128,63 @@ def get_resultados():
             })
     return jsonify({})
 
+
+@app.route('/api/resultados_distrito')
+def get_resultados_distrito():
+    """Retorna os resultados agregados de um distrito específico."""
+    distrito = request.args.get('distrito')
+    ano = request.args.get('ano', '2024')
+
+    dados = dados_2024 if ano == "2024" else dados_2019
+    resultados_nacionais = resultados_nacionais_2024 if ano == "2024" else resultados_nacionais_2019
+
+    if not distrito:
+        return jsonify({"erro": "Distrito não especificado"}), 400
+
+    total_votos = {}
+    total_eleitores = 0
+    total_votantes = 0
+    total_brancos = 0
+
+    for f in dados:
+        if f['distrito'].lower() == distrito.lower():
+            total_eleitores += f['inscritos']
+            total_votantes += f['votantes']
+            total_brancos += f['brancos']
+
+            for partido, votos in f['votos'].items():
+                total_votos[partido] = total_votos.get(partido, 0) + votos
+
+    if total_votantes == 0:
+        return jsonify({"erro": "Dados não encontrados para este distrito"}), 404
+
+    votos_validos = total_votantes - total_brancos
+    percentagens = {
+        partido: (votos / votos_validos) * 100
+        for partido, votos in total_votos.items()
+    }
+    vencedor = max(total_votos.items(), key=lambda x: x[1])[0]
+
+    return jsonify({
+        "tipo": "distrito",
+        "distrito": distrito,
+        "estatisticas": {
+            "total_eleitores": total_eleitores,
+            "total_votantes": total_votantes,
+            "abstencao": total_eleitores - total_votantes,
+            "brancos": total_brancos,
+            "votos_validos": votos_validos
+        },
+        "vencedor": vencedor,
+        "votos": total_votos,
+        "percentagens": percentagens,
+        "resultados_nacionais": {
+            "vencedor": resultados_nacionais['vencedor'],
+            "percentagens": resultados_nacionais['percentagens']
+        }
+    })
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
