@@ -25,7 +25,7 @@ def main():
     aquisition_script = 'python3 run_time/data_aquisition.py'
     cleaning_script = 'python3 run_time/data_cleaning_etc.py'
 
-    tests_e_pylint = 'python3 unit tests/run_all_tests.py'
+    tests_e_pylint = 'python3 unit_tests/run_all_tests.py'
 
     # Garante que os diretórios existem
     run_time_dir.mkdir(parents=True, exist_ok=True)

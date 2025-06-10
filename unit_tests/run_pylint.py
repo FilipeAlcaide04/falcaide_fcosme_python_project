@@ -36,13 +36,13 @@ def display_pylint_results():
         "run_time/requirements.py",
         "src/file_handlers.py",
         "src/data_generator.py",
-        "unit tests/0_requirements_test.py",
-        "unit tests/1_file_handlers_test.py",
-        "unit tests/2_data_aquisition_test.py",
-        "unit tests/3_data_generator_test.py",
-        "unit tests/4_cne_server_test.py",
-        "unit tests/run_all_tests.py",
-        "unit tests/run_pylint.py",
+        "unit_tests/0_requirements_test.py",
+        "unit_tests/1_file_handlers_test.py",
+        "unit_tests/2_data_aquisition_test.py",
+        "unit_tests/3_data_generator_test.py",
+        "unit_tests/4_cne_server_test.py",
+        "unit_tests/run_all_tests.py",
+        "unit_tests/run_pylint.py",
     ]
     print("\n" + "="*50)
     print("PYLINT CODE ANALYSIS RESULTS")
