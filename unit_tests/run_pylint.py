@@ -2,6 +2,7 @@
 import subprocess
 from pathlib import Path
 import sys
+import platform
 
 
 def run_pylint(module_path):
@@ -30,21 +31,40 @@ def run_pylint(module_path):
 
 def display_pylint_results():
     """Run Pylint on all modules and display results."""
-    modules = [
-        "run_time/data_aquisition.py",
-        "run_time/data_cleaning_etc.py",
-        "server_data/cne_server.py",
-        "run_time/requirements.py",
-        "src/file_handlers.py",
-        "src/data_generator.py",
-        "unit_tests/0_requirements_test.py",
-        "unit_tests/1_file_handlers_test.py",
-        "unit_tests/2_data_aquisition_test.py",
-        "unit_tests/3_data_generator_test.py",
-        "unit_tests/4_cne_server_test.py",
-        "unit_tests/run_all_tests.py",
-        "unit_tests/run_pylint.py",
+
+    if platform.system() == "Windows":
+            modules = [
+        "run_time\\data_aquisition.py",
+        "run_time\\data_cleaning_etc.py",
+        "server_data\\cne_server.py",
+        "run_time\\requirements.py",
+        "src\\file_handlers.py",
+        "src\\data_generator.py",
+        "unit_tests\\0_requirements_test.py",
+        "unit_tests\\1_file_handlers_test.py",
+        "unit_tests\\2_data_aquisition_test.py",
+        "unit_tests\\3_data_generator_test.py",
+        "unit_tests\\4_cne_server_test.py",
+        "unit_tests\\run_all_tests.py",
+        "unit_tests\\run_pylint.py",
     ]
+    else :
+        modules = [
+            "run_time/data_aquisition.py",
+            "run_time/data_cleaning_etc.py",
+            "server_data/cne_server.py",
+            "run_time/requirements.py",
+            "src/file_handlers.py",
+            "src/data_generator.py",
+            "unit_tests/0_requirements_test.py",
+            "unit_tests/1_file_handlers_test.py",
+            "unit_tests/2_data_aquisition_test.py",
+            "unit_tests/3_data_generator_test.py",
+            "unit_tests/4_cne_server_test.py",
+            "unit_tests/run_all_tests.py",
+            "unit_tests/run_pylint.py",
+        ]
+
     print("\n" + "=" * 50)
     print("PYLINT CODE ANALYSIS RESULTS")
     print("=" * 50)
@@ -72,4 +92,4 @@ def display_pylint_results():
 
 if __name__ == "__main__":
     display_pylint_results()
-    
+
