@@ -8,25 +8,24 @@ import platform
 from pathlib import Path
 
 def clear_terminal():
+    """Limpa o terminal, dependendo do sistema operativo."""
     if platform.system() == "Windows":
         os.system('cls')
-    else:  # Linux e macOS 
+    else:  # Linux e macOS
         os.system('clear')
 
-def create_dummy_file(path: Path, content: str = "# Dummy file\n"):
-    """Cria um ficheiro com conteúdo básico se ele não existir."""
-    if not path.exists():
-        path.parent.mkdir(parents=True, exist_ok=True)  # Garante que o diretório existe
-        with open(path, 'w') as f:
-            f.write(content)
-        print(f"[INFO] Ficheiro criado: {path}")
-
 def main():
+    """ Função principal que executa a aplicação."""
     # Diretórios e ficheiros essenciais
     run_time_dir = Path("run_time")
     server_file = Path("server_data/cne_server.py")
     data_raw_dir = Path("data/raw")
     data_processed_dir = Path("data/processed")
+    req = 'python3 run_time/requirements.py'
+    aquisition_script = 'python3 run_time/data_aquisition.py'
+    cleaning_script = 'python3 run_time/data_cleaning_etc.py'
+
+    tests_e_pylint = 'python3 unit tests/run_all_tests.py'
 
     # Garante que os diretórios existem
     run_time_dir.mkdir(parents=True, exist_ok=True)
@@ -34,18 +33,25 @@ def main():
     data_processed_dir.mkdir(parents=True, exist_ok=True)
 
     # Instala as dependências necessárias
-    os.system('python3 run_time/requirements.py')
+    os.system(req)
 
     # Executa o script para ir buscar os dados
-    os.system('python3 run_time/data_aquisition.py')
+    os.system(aquisition_script)
 
     # Executa o script de limpeza e tratamento de dados
-    os.system('python3 run_time/data_cleaning_etc.py')
+    os.system(cleaning_script)
+
+    # Executa os testes e o pylint
+    clear_terminal()
+    os.system(tests_e_pylint)
+    
+    # Aguarda que o user pressione Enter para continuar
+    input("Pressione Enter para continuar...")
 
     # Inicia o servidor
     clear_terminal()
     print("A iniciar o servidor... Aguarde um momento.")
-    os.system('python3 server_data/cne_server.py')
+    os.system('python3 ' + str(server_file))
 
 if __name__ == "__main__":
     main()

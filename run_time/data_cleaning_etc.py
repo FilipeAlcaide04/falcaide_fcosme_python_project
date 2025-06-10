@@ -1,15 +1,21 @@
-""" Aqui vai ser executado o script para limpar e tratar os dados """
+"""Script para limpar e tratar os dados."""
 
-from pathlib import Path
 import sys
+from pathlib import Path
 
-# Adiciona o diretório pai ao PATH do Python
-sys.path.append(str(Path(__file__).parent.parent))
+# Add parent directory to path to allow importing src
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
-import src.file_handlers as data
+import src.file_handlers as data  # pylint: disable=wrong-import-position, import-error
 
-data.main()
+# Isto está a funcionar não sei porque razão não encontrava o
+# modulo src.file_handlers (Tentei de tudo, mas não consegui resolver)
 
-data.sec_main('2019')
+def main():
+    """Execute data cleaning operations."""
+    data.main()
+    data.sec_main('2019')
+    data.sec_main('2024')
 
-data.sec_main('2024')
+if __name__ == '__main__':
+    main()

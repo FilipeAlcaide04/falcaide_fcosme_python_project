@@ -1,14 +1,16 @@
-import numpy as np
-import pandas as pd
+""" Gerador de dados sintéticos para freguesias em Portugal """
 import json
+import numpy as np
 
 # Gera uma população aleatória para cada freguesia
-def gen_pop(size, pop_tuga=10580000):
+def gen_pop(size):
+    """ Gera uma população aleatória para cada freguesia."""
     return np.random.randint(500, 5001, size=len(size))
 
-def gen_votes_por_partido(df_freguesias, ano='2019'):
-    ano_sufixo = ano[-2:]  # '19' ou '24'
-    caminho_partidos = f'data/raw/partidos_{ano_sufixo}.json'
+def gen_votes_por_partido(df_freguesias, ano='2019', partidos_path=None):
+    """ Gera votos por partido para cada freguesia com base em um ano específico."""
+    ano_sufixo = ano[-2:]
+    caminho_partidos = partidos_path or f'data/raw/partidos_{ano_sufixo}.json'
 
     try:
         with open(caminho_partidos, encoding='utf-8') as f:
@@ -17,56 +19,21 @@ def gen_votes_por_partido(df_freguesias, ano='2019'):
         print(f"❌ Arquivo de partidos não encontrado: {caminho_partidos}")
         return []
 
-    # Pesos de popularidade por ano para ter dados mais realistas :( 
     preferencias_por_ano = {
         '2019': {
-            "PS": 5,
-            "PSD": 4,
-            "BE": 2.5,
-            "CDU": 2,
-            "CDS-PP": 1.5,
-            "PAN": 1,
-            "IL": 1,
-            "CHEGA": 1,
-            "LIVRE": 0.5,
-            "R.I.R.": 0.2,
-            "PCTP/MRPP": 0.05,
-            "MPT": 0.05,
-            "PURP": 0.1,
-            "PPM": 0.1,
-            "JPP": 0.2,
-            "PNR": 0.1,
-            "Nós, Cidadãos!": 0.1,
-            "Aliança": 0.2
+            "PS": 5, "PSD": 4, "BE": 2.5, "CDU": 2, "CDS-PP": 1.5, "PAN": 1, "IL": 1,
+            "CHEGA": 1, "LIVRE": 0.5, "R.I.R.": 0.2, "PCTP/MRPP": 0.01, "MPT": 0.05,
+            "PURP": 0.1, "PPM": 0.1, "JPP": 0.2, "PNR": 0.1, "Nós, Cidadãos!": 0.1, "Aliança": 0.2
         },
         '2024': {
-            "PS": 5,
-            "AD": 5,
-            "CHEGA": 4,
-            "IL": 2,
-            "BE": 1,
-            "LIVRE": 2,
-            "PAN": 0.5,
-            "CDU": 1,
-            "R.I.R.": 0.1,
-            "JPP": 0.4,
-            "ADN": 0.3,
-            "Volt": 0.3,
-            "Ergue-te": 0.05,
-            "MPT": 0.05,
-            "PPM": 0.1,
-            "NC": 0.1,
-            "MAS": 0.05,
-            "PTP": 0.05,
-            "PCTP/MRPP": 0.05
+            "PS": 5, "AD": 5, "CHEGA": 4, "IL": 2, "BE": 1, "LIVRE": 2, "PAN": 0.5, "CDU": 1,
+            "R.I.R.": 0.1, "JPP": 0.4, "ADN": 0.3, "Volt": 0.3, "Ergue-te": 0.05, "MPT": 0.05,
+            "PPM": 0.1, "NC": 0.1, "MAS": 0.05, "PTP": 0.05, "PCTP/MRPP": 0.01
         }
     }
 
-
-
     preferencias = preferencias_por_ano.get(ano, {})
     alfas = [preferencias.get(partido, 1) for partido in partidos]
-
     resultados = []
 
     for _, row in df_freguesias.iterrows():
@@ -76,8 +43,6 @@ def gen_votes_por_partido(df_freguesias, ano='2019'):
 
         pesos = np.random.dirichlet(alfas)
         votos = (pesos * votos_validos).round().astype(int)
-
-        # Corrige diferença
         diferenca = votos_validos - votos.sum()
         votos[0] += diferenca
 
@@ -97,4 +62,3 @@ def gen_votes_por_partido(df_freguesias, ano='2019'):
         resultados.append(resultado)
 
     return resultados
-
