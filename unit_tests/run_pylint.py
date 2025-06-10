@@ -1,13 +1,14 @@
-"""Run Pylint on specified modules and display results."""
-from pathlib import Path
+"""Run Pylint on all modules and display results."""
 import subprocess
+from pathlib import Path
+import sys
 
 
 def run_pylint(module_path):
     """Run pylint on a module and return the score."""
     try:
         result = subprocess.run(
-            ["pylint", "--output-format=text", module_path],
+            [sys.executable, "-m", "pylint", "--output-format=text", module_path],
             capture_output=True,
             text=True,
             check=False
@@ -44,14 +45,15 @@ def display_pylint_results():
         "unit_tests/run_all_tests.py",
         "unit_tests/run_pylint.py",
     ]
-    print("\n" + "="*50)
+    print("\n" + "=" * 50)
     print("PYLINT CODE ANALYSIS RESULTS")
-    print("="*50)
+    print("=" * 50)
     max_len = max(len(module) for module in modules)
     scores = []
     for module in modules:
-        if Path(module).exists():
-            score, output = run_pylint(module)
+        module_path = Path(module)
+        if module_path.exists():
+            score, output = run_pylint(str(module_path))
             if score is not None:
                 print(f"{module.ljust(max_len)} : {score}/10")
                 scores.append(score)
@@ -63,10 +65,11 @@ def display_pylint_results():
             print(f"{module.ljust(max_len)} : File not found")
     if scores:
         average_score = sum(scores) / len(scores)
-        print("="*50)
+        print("=" * 50)
         print(f"AVERAGE SCORE: {average_score:.2f}/10")
-    print("="*50 + "\n")
+    print("=" * 50 + "\n")
 
 
 if __name__ == "__main__":
     display_pylint_results()
+    
