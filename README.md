@@ -15,7 +15,8 @@ Certifique-se de ter o Git instalado. No terminal, execute:
 
 ```bash
 git clone https://github.com/FilipeAlcaide04/falcaide_fcosme_python_project
-
+```
+```bash
 cd falcaide_fcosme_python_project
 ```
 
