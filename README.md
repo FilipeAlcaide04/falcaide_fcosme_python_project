@@ -33,6 +33,10 @@ python3 -m venv nome_do_ambiente
 Windows: meu_ambiente\Scripts\activate.
 macOS/Linux: source meu_ambiente/bin/activate.
 
+# Desativar ambiente
+
+deactivate
+
 ```
 
 1. Execute o script principal para instalar dependências, correr testes e executar os scripts na ordem correta:
