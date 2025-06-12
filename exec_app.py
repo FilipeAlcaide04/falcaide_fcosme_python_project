@@ -44,7 +44,7 @@ def main():
     # Executa os testes e o pylint
     clear_terminal()
     os.system(tests_e_pylint)
-    
+      
     # Aguarda que o user pressione Enter para continuar
     input("Pressione Enter para continuar...")
 

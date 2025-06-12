@@ -24,6 +24,17 @@ cd falcaide_fcosme_python_project
 
 ## 🐍 Como Executar
 
+0. Crie e ative o Virtual Enviroment: (Mandatory)
+```bash
+# Cria um ambiente virtual 
+python3 -m venv nome_do_ambiente 
+
+# Ativar o ambiente
+Windows: meu_ambiente\Scripts\activate.
+macOS/Linux: source meu_ambiente/bin/activate.
+
+```
+
 1. Execute o script principal para instalar dependências, correr testes e executar os scripts na ordem correta:
 ```bash
 python3 exec_app.py
@@ -33,12 +44,12 @@ python3 exec_app.py
 
 - **Instalar dependências:**
     ```bash
-    pip install -r requirements.txt
+    pip install -r requirements.txt 
     ```
 
 - **Executar testes (todos ou um a um):**
     ```bash
-    python3 run_all_tests
+    python3 unit_test/run_all_tests
     ```
 
 - **Executar scripts individuais:**
