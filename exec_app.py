@@ -1,45 +1,58 @@
-"""
-Este script executa a aplicação na ordem correta, simplificando o processo de execução.
-"""
-
+""" Script para executar o servidor CNE e realizar a aquisição e limpeza de dados."""
 import os
-import platform
 import sys
+import shutil
+import platform
 from pathlib import Path
 
 def clear_terminal():
-    """Limpa o terminal, dependendo do sistema operativo."""
+    """
+    Limpa o terminal.
+    """
     if platform.system() == "Windows":
         os.system('cls')
-    else:  # Linux e macOS
+    else:
         os.system('clear')
 
 def executar_comando(comando: str, descricao: str):
-    """Executa um comando e cancela tudo se houver erro."""
+    """
+    Executa um comando no terminal e verifica se foi bem-sucedido.
+        """
     print(f"\n[INFO] {descricao}...")
     resultado = os.system(comando)
     if resultado != 0:
         print(f"\n[ERRO] Falha ao executar: {descricao}.")
         sys.exit(1)
 
+def detectar_comando_python():
+    """Detecta o melhor comando Python disponível no sistema."""
+    if platform.system() == "Windows":
+        for cmd in ["py", "python", "python3"]:
+            if shutil.which(cmd):
+                return cmd
+    else:
+        for cmd in ["python3", "python"]:
+            if shutil.which(cmd):
+                return cmd
+    raise EnvironmentError("Nenhum comando Python válido encontrado no sistema.")
+
 def main():
-    """Função principal que executa a aplicação."""
-    # Diretórios e ficheiros essenciais
+    """Função principal para executar o script de inicialização do servidor CNE."""
+    python_cmd = detectar_comando_python()
+
     run_time_dir = Path("run_time")
     server_file = Path("server_data/cne_server.py")
     data_raw_dir = Path("data/raw")
     data_processed_dir = Path("data/processed")
 
-    aquisition_script = 'python3 run_time/data_aquisition.py'
-    cleaning_script = 'python3 run_time/data_cleaning_etc.py'
-    tests_e_pylint = 'python3 unit_tests/run_all_tests.py'
+    aquisition_script = f'{python_cmd} run_time/data_aquisition.py'
+    cleaning_script = f'{python_cmd} run_time/data_cleaning_etc.py'
+    tests_e_pylint = f'{python_cmd} unit_tests/run_all_tests.py'
 
-    # Garante que os diretórios existem
     run_time_dir.mkdir(parents=True, exist_ok=True)
     data_raw_dir.mkdir(parents=True, exist_ok=True)
     data_processed_dir.mkdir(parents=True, exist_ok=True)
 
-    # Etapas da execução
     executar_comando(aquisition_script, "Aquisição de dados")
     executar_comando(cleaning_script, "Limpeza e processamento de dados")
 
@@ -50,7 +63,7 @@ def main():
 
     clear_terminal()
     print("A iniciar o servidor... Aguarde um momento.")
-    executar_comando(f'python3 {server_file}', "Inicialização do servidor")
+    executar_comando(f'{python_cmd} {server_file.as_posix()}', "Inicialização do servidor")
 
 if __name__ == "__main__":
     main()
