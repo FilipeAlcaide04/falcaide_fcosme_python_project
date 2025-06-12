@@ -5,6 +5,9 @@ data/raw/distritos.csv
 data/raw/elections/
 data/raw/freguesias.csv
 data/raw/municipios.csv
-
+src/__pycache__/
+run_time/__pycache__/
+unit_tests/__pycache__
+server_data/__pycache__
 *.pyc
 */__pycache__/*

@@ -1,10 +1,10 @@
-""" 
-Este script executa a aplicação na ordem correta simplificando o processo de execução
 """
-# Os ficheiros que serão executados encontram-se nas pastas "run_time" e "server_data"
+Este script executa a aplicação na ordem correta, simplificando o processo de execução.
+"""
 
 import os
 import platform
+import sys
 from pathlib import Path
 
 def clear_terminal():
@@ -14,17 +14,24 @@ def clear_terminal():
     else:  # Linux e macOS
         os.system('clear')
 
+def executar_comando(comando: str, descricao: str):
+    """Executa um comando e cancela tudo se houver erro."""
+    print(f"\n[INFO] {descricao}...")
+    resultado = os.system(comando)
+    if resultado != 0:
+        print(f"\n[ERRO] Falha ao executar: {descricao}.")
+        sys.exit(1)
+
 def main():
-    """ Função principal que executa a aplicação."""
+    """Função principal que executa a aplicação."""
     # Diretórios e ficheiros essenciais
     run_time_dir = Path("run_time")
     server_file = Path("server_data/cne_server.py")
     data_raw_dir = Path("data/raw")
     data_processed_dir = Path("data/processed")
-    #req = 'python3 run_time/requirements.py'
+
     aquisition_script = 'python3 run_time/data_aquisition.py'
     cleaning_script = 'python3 run_time/data_cleaning_etc.py'
-
     tests_e_pylint = 'python3 unit_tests/run_all_tests.py'
 
     # Garante que os diretórios existem
@@ -32,26 +39,18 @@ def main():
     data_raw_dir.mkdir(parents=True, exist_ok=True)
     data_processed_dir.mkdir(parents=True, exist_ok=True)
 
-    # Instala as dependências necessárias
-    #os.system(req)
+    # Etapas da execução
+    executar_comando(aquisition_script, "Aquisição de dados")
+    executar_comando(cleaning_script, "Limpeza e processamento de dados")
 
-    # Executa o script para ir buscar os dados
-    os.system(aquisition_script)
-
-    # Executa o script de limpeza e tratamento de dados
-    os.system(cleaning_script)
-
-    # Executa os testes e o pylint
     clear_terminal()
-    os.system(tests_e_pylint)
-      
-    # Aguarda que o user pressione Enter para continuar
-    input("Pressione Enter para continuar...")
+    executar_comando(tests_e_pylint, "Testes e análise com pylint")
 
-    # Inicia o servidor
+    input("\nPressione Enter para continuar...")
+
     clear_terminal()
     print("A iniciar o servidor... Aguarde um momento.")
-    os.system('python3 ' + str(server_file))
+    executar_comando(f'python3 {server_file}', "Inicialização do servidor")
 
 if __name__ == "__main__":
     main()
