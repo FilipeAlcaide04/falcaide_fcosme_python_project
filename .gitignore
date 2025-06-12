@@ -1,0 +1,10 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+virtual_env/
+data/processed/
+data/raw/distritos.csv
+data/raw/elections/
+data/raw/freguesias.csv
+data/raw/municipios.csv
+
+*.pyc
+*/__pycache__/*

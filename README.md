@@ -33,7 +33,7 @@ python3 exec_app.py
 
 - **Instalar dependências:**
     ```bash
-    python3 run_time/requirements.py
+    pip install -r requirements.txt
     ```
 
 - **Executar testes (todos ou um a um):**
@@ -64,6 +64,7 @@ FALCAIDE_FCOSME_PROJECT/
 │
 ├── exec_app.py
 ├── README.md
+├── requirements.txt
 ├── .pytest_cache/
 │
 ├── data/

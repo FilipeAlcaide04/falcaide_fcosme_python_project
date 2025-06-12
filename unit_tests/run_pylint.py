@@ -18,7 +18,7 @@ def run_pylint(module_path):
         # Extract score from Pylint output
         score_line = [line for line in output.split('\n') if "Your code has been rated at" in line]
         if score_line:
-            score_str = score_line[0].split()[6].split('/')[0]  # Get the numeric part before '/10'
+            score_str = score_line[0].split()[6].split('/')[0]  # Get the numeric part before '/10' para ficar fino como papel
             try:
                 score = float(score_str)
                 return score, output

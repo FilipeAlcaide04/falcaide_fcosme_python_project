@@ -3,15 +3,15 @@ import subprocess
 import sys
 
 packages = [
-    "xlrd",
-    "flask",
-    "pandas",
-    "matplotlib",
-    "openpyxl",
-    "requests",
-    "python-dotenv",
-    "pylint",
-    "pytest"
+    "xlrd==2.0.1",
+    "flask==2.3.3",
+    "pandas==2.2.2",
+    "openpyxl==3.1.2",
+    "requests==2.31.0",
+    "python-dotenv==1.0.1",
+    "pylint==3.1.0",
+    "pytest==8.2.1",
+    "platformdirs==4.2.1"
 ]
 
 
