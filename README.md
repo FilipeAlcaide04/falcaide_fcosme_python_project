@@ -1,55 +1,54 @@
-# 🇵🇹 Simulação de Eleições Legislativas em Portugal 
+# 🇵🇹 Simulação de Eleições Legislativas em Portugal
 
-Este projeto simula o processo das eleições legislativas em Portugal, incluindo:
+Este projeto simula o processo das eleições legislativas em Portugal, com as seguintes funcionalidades principais:
 
-1. **Geração de resultados eleitorais simulados por freguesia**, com base nos resultados regionais  
-2. **Comparação dos resultados fictícios de 2019 com os de 2024**  
-3. **Servidor para receção e processamento de dados**  
-4. **Visualização dos resultados num site interativo e de fácil utilização**
+- 📊 **Geração de resultados eleitorais simulados por freguesia**, com base em resultados regionais.
+- 🔁 **Comparação dos resultados fictícios de 2019 com os de 2024**.
+- 🌐 **Servidor para receção e processamento de dados**.
+- 📈 **Visualização dos resultados num site interativo e intuitivo**.
 
 ---
 
-## 📥 Como Clonar o Repositório
+## 📥 Clonagem do Repositório
 
-Certifique-se de ter o Git instalado. No terminal, execute:
+Certifique-se de que tem o Git instalado. No terminal, execute:
 
 ```bash
 git clone https://github.com/FilipeAlcaide04/falcaide_fcosme_python_project
-```
-```bash
 cd falcaide_fcosme_python_project
+
 ```
 
 ---
 
 ## 🐍 Como Executar
 
-0. Crie e ative o Virtual Enviroment: (Mandatory)
-```bash
-# Cria um ambiente virtual 
-python3 -m venv nome_do_ambiente 
+1. Crie e ative o Virtual Enviroment: (Mandatory)
+- **Cria e inicia o ambiente virtual:**
+    ```bash
+    # Cria um ambiente virtual 
+    python3 -m venv nome_do_ambiente 
 
-# Ativar o ambiente
-Windows: meu_ambiente\Scripts\activate.
-macOS/Linux: source meu_ambiente/bin/activate.
+    # Ativar o ambiente
+    Windows: meu_ambiente\Scripts\activate.
+    macOS/Linux: source meu_ambiente/bin/activate.
 
-# Desativar ambiente
+    # Quando quiser desativar o ambiente
 
-deactivate
-
-```
-
-1. Execute o script principal para instalar dependências, correr testes e executar os scripts na ordem correta:
-```bash
-python3 exec_app.py
-```
-
-2. **Execução faseada** (caso prefira executar cada etapa manualmente):
+    deactivate
+    ```
 
 - **Instalar dependências:**
     ```bash
     pip install -r requirements.txt 
     ```
+
+## Execute o script principal para, correr testes e executar os scripts na ordem correta:
+```bash
+python3 exec_app.py
+```
+
+## Execução faseada (caso prefira executar cada etapa manualmente):
 
 - **Executar testes (todos ou um a um):**
     ```bash
@@ -57,15 +56,15 @@ python3 exec_app.py
     ```
 
 - **Executar scripts individuais:**
-    - Data Aquisition:
+    - 1º- Data Aquisition:
         ```bash
         python3 run_time/data_aquisition.py
         ```
-    - Data Cleaning:
+    - 2º- Data Cleaning:
         ```bash
         python3 run_time/data_cleaning_etc.py
         ```
-    - Iniciar servidor:
+    - 3º- Iniciar servidor:
         ```bash
         python3 server_data/cne_server.py
         ```
@@ -80,7 +79,6 @@ FALCAIDE_FCOSME_PROJECT/
 ├── exec_app.py
 ├── README.md
 ├── requirements.txt
-├── .pytest_cache/
 │
 ├── data/
 │   ├── processed/

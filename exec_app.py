@@ -21,7 +21,7 @@ def main():
     server_file = Path("server_data/cne_server.py")
     data_raw_dir = Path("data/raw")
     data_processed_dir = Path("data/processed")
-    req = 'python3 run_time/requirements.py'
+    #req = 'python3 run_time/requirements.py'
     aquisition_script = 'python3 run_time/data_aquisition.py'
     cleaning_script = 'python3 run_time/data_cleaning_etc.py'
 
@@ -33,7 +33,7 @@ def main():
     data_processed_dir.mkdir(parents=True, exist_ok=True)
 
     # Instala as dependências necessárias
-    os.system(req)
+    #os.system(req)
 
     # Executa o script para ir buscar os dados
     os.system(aquisition_script)
