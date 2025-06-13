@@ -34,6 +34,6 @@
 - [x] Atualizar `README.md`
   - [x] Instruções de instalação
   - [x] Como correr o projeto
-- [ ] Completar `relatorio.md`
+- [x] Completar `relatorio.md`
 
 
