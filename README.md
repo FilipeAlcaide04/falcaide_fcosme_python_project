@@ -26,12 +26,17 @@ cd falcaide_fcosme_python_project
 1. Crie e ative o Virtual Enviroment: (Mandatory)
 - **Cria e inicia o ambiente virtual:**
     ```bash
-    # Cria um ambiente virtual 
-    python3 -m venv nome_do_ambiente 
+    # Cria um ambiente virtual, escolha uma das opções
+    python3 -m venv nome_do_ambiente
+
+    python -m venv nome_do_ambiente
+
+    py -m venv nome_do_ambiente
+
 
     # Ativar o ambiente
-    Windows: meu_ambiente\Scripts\activate.
-    macOS/Linux: source meu_ambiente/bin/activate.
+    Windows: nome_do_ambiente\Scripts\activate.
+    macOS/Linux: source nome_do_ambiente/bin/activate.
 
     # Quando quiser desativar o ambiente
 
@@ -46,6 +51,10 @@ cd falcaide_fcosme_python_project
 ## Execute o script principal para, correr testes e executar os scripts na ordem correta:
 ```bash
 python3 exec_app.py
+
+python exec_app.py
+
+py exec_app.py
 ```
 
 ## Execução faseada (caso prefira executar cada etapa manualmente):
@@ -59,14 +68,26 @@ python3 exec_app.py
     - 1º- Data Aquisition:
         ```bash
         python3 run_time/data_aquisition.py
+
+        python run_time/data_aquisition.py
+
+        py run_time/data_aquisition.py
         ```
     - 2º- Data Cleaning:
         ```bash
         python3 run_time/data_cleaning_etc.py
+
+        python run_time/data_cleaning_etc.py
+
+        py run_time/data_cleaning_etc.py
         ```
     - 3º- Iniciar servidor:
         ```bash
         python3 server_data/cne_server.py
+
+        python server_data/cne_server.py
+
+        py server_data/cne_server.py
         ```
 
 ---
